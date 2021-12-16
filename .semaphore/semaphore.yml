@@ -1,20 +1,14 @@
 version: v1.0
-name: Test MyApp
+name: docker-react-pipeline
 agent:
   machine:
     type: e1-standard-2
-    os_image: ubuntu2004
-
-blocks:
-  - name: Test
-    task:
-      jobs:
-        - name: Test
-          commands:
-            - checkout
-            - sem-version node 12
-            - cache restore
-            - npm install
-            - cache store
-            - npm run build --if-present
-            - npm test
+    os_image: ubuntu1804
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t wojtekidd/docker-react -f Dockerfile.dev .
+script:
+  - docker run -e CI=true wojtekidd/docker-react npm run test -- --coverage
+blocks: []
