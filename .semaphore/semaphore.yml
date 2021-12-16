@@ -14,4 +14,5 @@ blocks:
             - docker build -t wojtekidd/docker-react -f Dockerfile .
         - name: Testing
           commands:
+            - checkout
             - docker run -e wojtekidd/docker-react npm run test
