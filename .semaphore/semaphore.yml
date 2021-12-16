@@ -1,14 +1,18 @@
 version: v1.0
-name: docker-react-pipeline
+name: Dockerized React App with Tests
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
 sudo: required
-services:
-  - docker
-before_install:
-  - docker build -t wojtekidd/docker-react -f Dockerfile.dev .
-script:
-  - docker run -e CI=true wojtekidd/docker-react npm run test -- --coverage
-blocks: []
+blocks:
+  - name: Docker build
+    dependencies: []
+    task:
+      jobs:
+        - name: Building
+          commands:
+            - docker build -t wojtekidd/docker-react -f Dockerfile.dev .
+        - name: Testing
+          commands:
+            - docker run -e CI=true wojtekidd/docker-react npm run test -- --coverage
