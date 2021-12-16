@@ -6,12 +6,12 @@ agent:
     os_image: ubuntu1804
 blocks:
   - name: Docker build
-    dependencies: []
     task:
       jobs:
-        - name: Building
+        - name: Docker build
           commands:
-            - docker build -t wojtekidd/docker-react -f Dockerfile.dev .
+            - checkout
+            - docker build -t wojtekidd/docker-react -f Dockerfile .
         - name: Testing
           commands:
             - docker run -e CI=true wojtekidd/docker-react npm run test -- --coverage
