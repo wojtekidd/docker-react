@@ -1,0 +1,14 @@
+version: v1.0
+name: Dockerized React App with Tests
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Docker build
+    task:
+      jobs:
+        - name: Docker build
+          commands:
+            - checkout
+            - docker build -t wojtekidd/docker-react -f Dockerfile .
