@@ -7,7 +7,17 @@ agent:
 blocks:
   - name: Deployment to EB
     task:
-      jobs:
+    	secrets:
+        - name: 'AWS Elastic Beanstalk'
+      env_vars:
+        - name: S3_BUCKET_NAME
+          value: elasticbeanstalk-eu-central-1-694956300450
+        - name: EB_APP_NAME
+          value: docker-react
+        - name: EB_ENV_NAME
+          value: dockerreact-env
+      
+    jobs:
         - name: Deploying to production
           commands:
             - echo "Deploying to AWS Elastic Beanstalk"
@@ -26,17 +36,4 @@ blocks:
               sleep 5; a="0"; echo "Waiting for environment health to turn Green"; while [[ `aws elasticbeanstalk describe-environments --environment-names "$EB_ENV_NAME" | grep '"Health"' | cut -d':' -f2  | sed -e 's/^[^"]*"//' -e 's/".*$//'` != "Green" && $a -le 30 ]]; do sleep 5; a=$[$a+1]; printf "."; done; if [[ `aws elasticbeanstalk describe-environments --environment-names "$EB_ENV_NAME" | grep '"Health"' | cut -d':' -f2 | sed -e 's/^[^"]*"//' -e 's/".*$//'` = "Green" ]]; then echo "Your
               environment status is Green, congrats!"; else echo "Your environment status is not Green, sorry."; false; fi;
             - 'echo "Your environment info'':''"; aws elasticbeanstalk describe-environments --environment-names "$EB_ENV_NAME"'
-      env_vars:
-        - name: EB_APP_NAME
-          value: docker-react
-        - name: EB_ENV_NAME
-          value: dockerreact-env
-        - name: S3_BUCKET_NAME
-          value: elasticbeanstalk-eu-central-1-694956300450
-      secrets:
-        - name: 'AWS Elastic Beanstalk '
-  - name: 'Block #2'
-    task:
-      jobs:
-        - name: 'Job #1'
-          commands: []
+      
