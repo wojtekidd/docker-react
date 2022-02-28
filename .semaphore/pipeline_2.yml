@@ -35,3 +35,8 @@ blocks:
           value: elasticbeanstalk-eu-central-1-694956300450
       secrets:
         - name: 'AWS Elastic Beanstalk '
+  - name: 'Block #2'
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
