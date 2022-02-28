@@ -1,0 +1,30 @@
+version: v1.0
+name: Pipeline 2
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Deployment to EB
+    task:
+      jobs:
+        - name: Deploying to production
+          commands:
+            - echo "Deploying to AWS Elastic Beanstalk"
+      env_vars:
+        - name: provider
+          value: elasticbeanstalk
+        - name: region
+          value: eu-central-1
+        - name: app
+          value: docker-react
+        - name: env
+          value: dockerreact-env
+        - name: bucket_name
+          value: elasticbeanstalk-eu-central-1-694956300450
+        - name: access_key_id
+          value: $AWS_ACCESS_KEY
+        - name: secret_access_key
+          value: $AWS_SECRET_KEY
+      secrets:
+        - name: 'AWS Elastic Beanstalk '
