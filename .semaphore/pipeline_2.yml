@@ -1,0 +1,24 @@
+version: v1.0
+name: Pipeline 2
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Deployment to EBS
+    task:
+      jobs:
+        - name: Deploying to production
+          commands:
+            - echo "job 1"
+      env_vars:
+        - name: region
+          value: '"eu-central-1"'
+        - name: provider
+          value: elasticbeanstalk
+        - name: app
+          value: '"docker-react"'
+        - name: enc
+          value: '"dockerreact-env"'
+        - name: 'bucket_name:'
+          value: '"elasticbeanstalk-eu-central-1-694956300450"'
