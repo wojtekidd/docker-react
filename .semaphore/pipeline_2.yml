@@ -20,5 +20,11 @@ blocks:
           value: docker-react
         - name: env
           value: dockerreact-env
-        - name: 'bucket_name:'
+        - name: bucket_name
           value: elasticbeanstalk-eu-central-1-694956300450
+        - name: access_key_id
+          value: $AWS_ACCESS_KEY
+        - name: secret_access_key
+          value: $AWS_SECRET_KEY
+      secrets:
+        - name: 'AWS Elastic Beanstalk '
