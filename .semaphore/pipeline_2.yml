@@ -16,6 +16,8 @@ blocks:
           value: docker-react
         - name: EB_ENV_NAME
           value: dockerreact-env
+        - name: AWS_DEFAULT_REGION
+          value: eu-central-1
       jobs:
         - name: Deployment
           commands:
